@@ -1,40 +1,37 @@
-import React from "react";
-import { Route, useLocation } from "react-router-dom";
-import { Container } from "semantic-ui-react";
-import EventDashbord from "../../feauters/events/eventDashbord/EventDashbord";
-import HomePage from "../../feauters/home/HomePage";
-import NavBar from "../../feauters/nav/NavBar";
-import EventDetailedPage from "../../feauters/events/eventsDetailed/EventDetailedPage";
-import EventForm from "../../feauters/events/eventForm/EventForm";
-import SandBox from "../../feauters/sanbox/SandBox";
-import ModalManager from "../common/modals/ModalManager";
+import React from 'react';
+import EventDashboard from '../../features/events/eventDashboard/EventDashboard';
+import NavBar from '../../features/nav/NavBar';
+import { Container } from 'semantic-ui-react';
+import { Route, useLocation } from 'react-router-dom';
+import HomePage from '../../features/home/HomePage';
+import EventDetailedPage from '../../features/events/eventDetailed/EventDetailedPage';
+import EventForm from '../../features/events/eventForm/EventForm';
+import Sandbox from '../../features/sandbox/Sandbox';
+import ModalManager from '../common/modals/ModalManager';
+import { ToastContainer } from 'react-toastify';
 
-const App = () => {
-  const {key} = useLocation()
+export default function App() {
+  const {key} = useLocation();
+
   return (
     <>
-    <ModalManager />
-      <Route exact path="/" component={HomePage} />
+      <ModalManager />
+      <ToastContainer  position ="bottom-right" hideProgressBar />
+      <Route exact path='/' component={HomePage} />
       <Route
-        path={"/(.+)"}
+        path={'/(.+)'}
         render={() => (
           <>
             <NavBar />
-            <Container className="main">
-              <Route exact path="/events" component={EventDashbord} />
-              <Route exact path="/sandbox" component={SandBox} />
-              <Route path="/events/:id" component={EventDetailedPage} />
-              <Route
-                path={["/createEvent", "/manage/:id"]}
-                component={EventForm}
-                key ={key}
-              />
+            <Container className='main'>
+              <Route exact path='/events' component={EventDashboard} />
+              <Route exact path='/sandbox' component={Sandbox} />
+              <Route path='/events/:id' component={EventDetailedPage} />
+              <Route path={['/createEvent', '/manage/:id']} component={EventForm} key={key} />
             </Container>
           </>
         )}
       />
     </>
   );
-};
-
-export default App;
+}

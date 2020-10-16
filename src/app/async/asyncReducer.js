@@ -1,24 +1,22 @@
-
-
-const ASYNC_ASCTION_START = "ASYNC_ASCTION_START";
-const ASYNC_ASCTION_FINISH = "ASYNC_ASCTION_FININS";
-const ASYNC_ASCTION_ERROR = "ASYNC_ASCTION_ERROR";
+const ASYNC_ACTION_START = 'ASYNC_ACTION_START';
+const ASYNC_ACTION_FINISH = 'ASYNC_ACTION_FINISH';
+const ASYNC_ACTION_ERROR = 'ASYNC_ACTION_ERROR';
 
 export function asyncActionStart() {
   return {
-    type: ASYNC_ASCTION_START,
+    type: ASYNC_ACTION_START,
   };
 }
 
 export function asyncActionFinish() {
   return {
-    type: ASYNC_ASCTION_FINISH,
+    type: ASYNC_ACTION_FINISH,
   };
 }
 
 export function asyncActionError(error) {
   return {
-    type: ASYNC_ASCTION_ERROR,
+    type: ASYNC_ACTION_ERROR,
     payload: error,
   };
 }
@@ -30,18 +28,18 @@ const initialState = {
 
 export default function asyncReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case ASYNC_ASCTION_START:
+    case ASYNC_ACTION_START:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case ASYNC_ASCTION_FINISH:
+    case ASYNC_ACTION_FINISH:
       return {
         ...state,
         loading: false,
       };
-    case ASYNC_ASCTION_ERROR:
+    case ASYNC_ACTION_ERROR:
       return {
         ...state,
         loading: false,

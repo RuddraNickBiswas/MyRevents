@@ -1,10 +1,10 @@
 // /* global google */
 import React, { useState } from "react";
 import { Segment, Header, Button, Confirm } from "semantic-ui-react";
-import cuid from "cuid";
+
 import { Link, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { createEvent, listenToEvents, updateEvent } from "../eventActions";
+import { listenToEvents } from "../eventActions";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import MyTextInput from "../../../app/common/form/MyTextInput";
@@ -25,8 +25,8 @@ import { toast } from "react-toastify";
 
 export default function EventForm({ match, history }) {
   const dispatch = useDispatch();
-  const [loadingCancel , setLoadingCancel] = useState(false)
-  const [confirmOpen, setConfirmOpen ] = useState(false)
+  const [loadingCancel, setLoadingCancel] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const selectedEvent = useSelector((state) =>
     state.event.events.find((e) => e.id === match.params.id)
@@ -56,14 +56,14 @@ export default function EventForm({ match, history }) {
   };
 
   async function handleCancleToggle(event) {
-    setConfirmOpen(false)
-    setLoadingCancel(true)
+    setConfirmOpen(false);
+    setLoadingCancel(true);
     try {
-      await cancleEventToggle(event)
-      setLoadingCancel(false)
+      await cancleEventToggle(event);
+      setLoadingCancel(false);
     } catch (error) {
-      setLoadingCancel(true)
-      toast.error(error.message)
+      setLoadingCancel(true);
+      toast.error(error.message);
     }
   }
 
@@ -144,7 +144,7 @@ export default function EventForm({ match, history }) {
             />
             {selectedEvent && (
               <Button
-              loading = {loadingCancel}
+                loading={loadingCancel}
                 // disabled={!isValid || isSubmitting}
                 type="button"
                 floated="left"
@@ -178,14 +178,15 @@ export default function EventForm({ match, history }) {
           </Form>
         )}
       </Formik>
-      <Confirm 
-      content ={selectedEvent?.isCancelled ? 'This will reactivate the event -are you sure?' :
-              "This will cancel the event -are you sure?"
-              
-    }
-    open = {confirmOpen}
-    onCancel = {() => setConfirmOpen(false)}
-    onConfirm = {() => handleCancleToggle(selectedEvent)}
+      <Confirm
+        content={
+          selectedEvent?.isCancelled
+            ? "This will reactivate the event -are you sure?"
+            : "This will cancel the event -are you sure?"
+        }
+        open={confirmOpen}
+        onCancel={() => setConfirmOpen(false)}
+        onConfirm={() => handleCancleToggle(selectedEvent)}
       />
     </Segment>
   );

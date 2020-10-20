@@ -20,7 +20,7 @@ export default function AboutTab({profile ,isCurrentUser}) {
             floated="right"
             onClick={() => setEditMode(!editMode)}
             basic
-            content={editMode ? "cancle" : "edit"}
+            content={editMode ? "Cancle" : "Edit"}
           />
           
           }
